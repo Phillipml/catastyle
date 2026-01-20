@@ -1,8 +1,7 @@
 import { LogoStyled } from './styles'
-import LogoLight from '@/assets/logos/light-theme.svg'
-import LogoDark from '@/assets/logos/dark-theme.svg'
 import type { WidthType } from '@/types'
 import { useTheme } from 'styled-components'
+import { getLogoLight, getLogoDark } from '@/utils/logoLoader'
 
 type LogoType = WidthType
 
@@ -12,7 +11,7 @@ const Logo = (props: LogoType) => {
 
   return (
     <LogoStyled {...props}>
-      <img src={isDarkTheme ? LogoDark : LogoLight} alt="Logo" />
+      <img src={isDarkTheme ? getLogoDark() : getLogoLight()} alt="Logo" />
     </LogoStyled>
   )
 }

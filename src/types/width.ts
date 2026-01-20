@@ -1,5 +1,5 @@
 export type WidthType = {
-  $lgWidth?: number
-  $mdWidth?: number
-  $smWidth?: number
+  $lgWidth?: number | undefined
+  $mdWidth?: number | undefined
+  $smWidth?: number | undefined
 }
