@@ -1,39 +1,54 @@
 import LogoLightDefault from '@/assets/logos/light-theme.svg'
 import LogoDarkDefault from '@/assets/logos/dark-theme.svg'
-import path from 'path'
-import { existsSync } from 'fs'
 
-function tryLoadUserLogo(filename: string): string | null {
-  if (typeof window !== 'undefined') {
+function tryLoadUserLogoConfig(): { logoLight: string; logoDark: string } | null {
+  if (typeof window !== 'undefined' || typeof process === 'undefined') {
     return null
   }
 
   try {
+    const path = require('path')
     const userProjectRoot = process.cwd()
-    const userLogoPath = path.join(
+    const configPath = path.join(
       userProjectRoot,
       'src',
       'catastyle',
-      'logo',
-      filename
+      'config',
+      'logo.config.ts'
     )
 
-    if (existsSync(userLogoPath)) {
-      return path.resolve(userLogoPath)
+    try {
+      const resolvedPath = require.resolve(configPath)
+      delete require.cache[resolvedPath]
+      const config = require(configPath)
+      return {
+        logoLight: config.logoLight,
+        logoDark: config.logoDark
+      }
+    } catch {
+      return null
     }
   } catch {
     return null
   }
-
-  return null
 }
 
 export function getLogoLight(): string {
-  const userLogo = tryLoadUserLogo('light-theme.svg')
-  return userLogo || LogoLightDefault
+  const userConfig = tryLoadUserLogoConfig()
+  
+  if (userConfig && userConfig.logoLight !== 'default') {
+    return userConfig.logoLight
+  }
+  
+  return LogoLightDefault
 }
 
 export function getLogoDark(): string {
-  const userLogo = tryLoadUserLogo('dark-theme.svg')
-  return userLogo || LogoDarkDefault
+  const userConfig = tryLoadUserLogoConfig()
+  
+  if (userConfig && userConfig.logoDark !== 'default') {
+    return userConfig.logoDark
+  }
+  
+  return LogoDarkDefault
 }
