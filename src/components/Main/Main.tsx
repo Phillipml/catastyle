@@ -1,9 +1,8 @@
 import GlobalStyle, { MainContainer } from '@/styles/global'
 import { ThemeProvider } from 'styled-components'
-import DarkTheme from '@/themes/dark'
-import LightTheme from '@/themes/light'
 import { useState } from 'react'
 import ThemeButton from '@/components/ThemeButton/ThemeButton'
+import { getDarkTheme, getLightTheme } from '@/utils/themeLoader'
 
 export type MainType = {
   children: React.ReactNode
@@ -14,7 +13,7 @@ const Main = ({ children }: MainType) => {
     setDarkTheme(!darkTheme)
   }
   return (
-    <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
+    <ThemeProvider theme={darkTheme ? getDarkTheme() : getLightTheme()}>
       <GlobalStyle />
       <MainContainer>
         <ThemeButton onClick={toggleTheme} />

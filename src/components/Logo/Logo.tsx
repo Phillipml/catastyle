@@ -1,18 +1,18 @@
+import type { HTMLAttributes } from 'react'
 import { LogoStyled } from './styles'
-import LogoLight from '@/assets/logos/light-theme.svg'
-import LogoDark from '@/assets/logos/dark-theme.svg'
 import type { WidthType } from '@/types'
 import { useTheme } from 'styled-components'
+import { getLogoLight, getLogoDark } from '@/utils/logoLoader'
 
-type LogoType = WidthType
+type LogoProps = WidthType & HTMLAttributes<HTMLDivElement>
 
-const Logo = (props: LogoType) => {
+const Logo = (props: LogoProps) => {
   const theme = useTheme()
   const isDarkTheme = theme.bgColor === '#011F1F'
 
   return (
     <LogoStyled {...props}>
-      <img src={isDarkTheme ? LogoDark : LogoLight} alt="Logo" />
+      <img src={isDarkTheme ? getLogoDark() : getLogoLight()} alt="Logo" />
     </LogoStyled>
   )
 }

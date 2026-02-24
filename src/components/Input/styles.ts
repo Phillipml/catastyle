@@ -8,7 +8,7 @@ import {
 } from '@/types'
 
 type InputWrapperProps = {
-  display?: string
+  display?: string | undefined
 } & WidthType
 
 type InputStyle = {

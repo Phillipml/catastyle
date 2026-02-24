@@ -2,19 +2,20 @@
   "name": "catastyle",
   "version": "0.1.0",
   "description": "Design System reutilizável com styled-components",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs"
+      ".": {    
+        "types": "./dist/index.d.ts",    
+        "import": "./dist/index.mjs",    
+        "require": "./dist/index.js"
     }
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "scripts"
   ],
   "scripts": {
     "dev": "tsup --watch",
@@ -24,12 +25,14 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,json,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,json,css}\"",
     "lint": "eslint . --fix",
-    "lint:check": "eslint ."
+    "lint:check": "eslint .",
+    "postinstall": "node scripts/postinstall.js"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
-    "react-router-dom": "^6.0.0 || ^7.0.0"
+    "react-router-dom": "^6.0.0 || ^7.0.0",
+    "styled-components": "^6.3.6"
   },
   "repository": {
     "type": "git",
@@ -44,8 +47,7 @@
   },
   "homepage": "https://github.com/Phillipml/catastyle#readme",
   "dependencies": {
-    "react-icons": "^5.5.0",
-    "styled-components": "^6.3.6"
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.0.0",

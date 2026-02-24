@@ -3,7 +3,7 @@ import { mdScreen, smScreen, type WidthType } from '@/types'
 import { InputStyled } from '@/components/Input/styles'
 
 type CheckLabelStyled = {
-  display?: string
+  display?: string | undefined
 } & WidthType
 
 export const CheckLabel = styled.label<CheckLabelStyled>`

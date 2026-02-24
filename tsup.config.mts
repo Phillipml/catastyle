@@ -8,11 +8,15 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  external: ['react', 'react-dom', 'styled-components'],
+  external: ['react', 'react-dom', 'styled-components', 'fs', 'path'],
   treeshake: true,
   esbuildOptions(options) {
     options.alias = {
       '@': resolve(__dirname, './src'),
+    }
+    options.loader = {
+      ...options.loader,
+      '.svg': 'dataurl',
     }
   },
 })
