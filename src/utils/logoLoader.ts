@@ -1,7 +1,10 @@
 import LogoLightDefault from '@/assets/logos/light-theme.svg'
 import LogoDarkDefault from '@/assets/logos/dark-theme.svg'
 
-function tryLoadUserLogoConfig(): { logoLight: string; logoDark: string } | null {
+function tryLoadUserLogoConfig(): {
+  logoLight: string
+  logoDark: string
+} | null {
   if (typeof window !== 'undefined' || typeof process === 'undefined') {
     return null
   }
@@ -35,20 +38,20 @@ function tryLoadUserLogoConfig(): { logoLight: string; logoDark: string } | null
 
 export function getLogoLight(): string {
   const userConfig = tryLoadUserLogoConfig()
-  
+
   if (userConfig && userConfig.logoLight !== 'default') {
     return userConfig.logoLight
   }
-  
+
   return LogoLightDefault
 }
 
 export function getLogoDark(): string {
   const userConfig = tryLoadUserLogoConfig()
-  
+
   if (userConfig && userConfig.logoDark !== 'default') {
     return userConfig.logoDark
   }
-  
+
   return LogoDarkDefault
 }

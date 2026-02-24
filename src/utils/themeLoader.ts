@@ -2,41 +2,47 @@ import type { DefaultTheme } from 'styled-components'
 import DarkThemeDefault from '@/themes/dark'
 import LightThemeDefault from '@/themes/light'
 import path from 'path'
-import { existsSync } from 'fs'
 
-function tryLoadUserTheme(filename: string): DefaultTheme | null {
+function tryLoadUserThemeConfig(): {
+  darkTheme: DefaultTheme | null
+  lightTheme: DefaultTheme | null
+} | null {
   if (typeof window !== 'undefined') {
     return null
   }
 
   try {
     const userProjectRoot = process.cwd()
-    const userThemePath = path.join(
+    const configPath = path.join(
       userProjectRoot,
       'src',
       'catastyle',
-      'themes',
-      `${filename}.ts`
+      'config',
+      'theme.config.ts'
     )
 
-    if (existsSync(userThemePath)) {
-      delete require.cache[require.resolve(userThemePath)]
-      const userTheme = require(userThemePath)
-      return userTheme.default || userTheme
+    try {
+      const resolvedPath = require.resolve(configPath)
+      delete require.cache[resolvedPath]
+      const config = require(configPath)
+      return {
+        darkTheme: config.darkTheme ?? null,
+        lightTheme: config.lightTheme ?? null
+      }
+    } catch {
+      return null
     }
   } catch {
     return null
   }
-
-  return null
 }
 
 export function getDarkTheme(): DefaultTheme {
-  const userTheme = tryLoadUserTheme('dark')
-  return userTheme || DarkThemeDefault
+  const userConfig = tryLoadUserThemeConfig()
+  return userConfig?.darkTheme ?? DarkThemeDefault
 }
 
 export function getLightTheme(): DefaultTheme {
-  const userTheme = tryLoadUserTheme('light')
-  return userTheme || LightThemeDefault
+  const userConfig = tryLoadUserThemeConfig()
+  return userConfig?.lightTheme ?? LightThemeDefault
 }
