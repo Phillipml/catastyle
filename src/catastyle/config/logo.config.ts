@@ -1,6 +1,6 @@
 /**
  * Configuração de Logos do Catastyle
- * 
+ *
  * Para customizar os logos, altere os valores abaixo para o caminho dos seus arquivos SVG.
  * Se os valores estiverem como 'default', os logos padrão do Catastyle serão usados.
  */

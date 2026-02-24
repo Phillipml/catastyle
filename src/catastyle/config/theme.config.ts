@@ -2,7 +2,7 @@ import type { DefaultTheme } from 'styled-components'
 
 /**
  * Configuração de Temas do Catastyle
- * 
+ *
  * Para customizar os temas, descomente e configure os objetos abaixo.
  * Se os valores estiverem como null, os temas padrão do Catastyle serão usados.
  */
