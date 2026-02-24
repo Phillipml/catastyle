@@ -14,5 +14,9 @@ export default defineConfig({
     options.alias = {
       '@': resolve(__dirname, './src'),
     }
+    options.loader = {
+      ...options.loader,
+      '.svg': 'dataurl',
+    }
   },
 })

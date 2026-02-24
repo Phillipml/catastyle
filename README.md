@@ -8,7 +8,24 @@ Design System reutilizável baseado em **React** e **styled-components**, com te
 npm install catastyle react react-dom styled-components react-router-dom
 ```
 
-**Peer dependencies:** `react` (^18 ou ^19), `react-dom`, `styled-components`, `react-router-dom` (^6 ou ^7).
+**Peer dependencies:** `react` (^18 ou ^19), `react-dom`, `styled-components`, `react-router-dom` (^6 ou ^7). O projeto consumidor deve instalá-las; o Catastyle não as inclui em `dependencies` para evitar duplicação.
+
+### Projetos com Vite
+
+Em projetos que usam **Vite**, configure `resolve.dedupe` para garantir uma única instância de React e styled-components (evita erros de contexto e duplicação de tema):
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    dedupe: ['react', 'react-dom', 'styled-components'],
+  },
+})
+```
 
 ## Uso básico
 
@@ -102,7 +119,9 @@ export const lightTheme: DefaultTheme | null = {
 
 ### Logos customizados
 
-Edite `src/catastyle/config/logo.config.ts` e defina os caminhos dos SVGs. Use `'default'` para manter os logos do Catastyle.
+Os **logos padrão** do Catastyle vêm embutidos no pacote (data URL) e funcionam em qualquer bundler (Vite, Webpack, etc.) sem configuração extra.
+
+Para usar seus próprios SVGs, edite `src/catastyle/config/logo.config.ts` e defina os caminhos. Use `'default'` para manter os logos do Catastyle. Os caminhos devem ser os que o seu projeto consegue resolver (ex.: caminho público ou URL).
 
 ```ts
 export const logoLight: string = '/src/assets/logo-light.svg'
@@ -130,8 +149,8 @@ npm run storybook
 
 ## Estrutura do pacote
 
-- **`main`:** `./dist/index.cjs` (CommonJS)
-- **`module`:** `./dist/index.esm.js` (ESM)
+- **`main`:** `./dist/index.js` (CommonJS)
+- **`module`:** `./dist/index.mjs` (ESM)
 - **`types`:** `./dist/index.d.ts`
 
 ## Licença
