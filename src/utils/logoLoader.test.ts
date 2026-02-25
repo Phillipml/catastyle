@@ -1,4 +1,3 @@
-import { vi } from 'vitest'
 const MOCK_LOGO_LIGHT = '../src/mocks/logos/light-theme.svg'
 const MOCK_LOGO_DARK = '../src/mocks/logos/dark-theme.svg'
 
