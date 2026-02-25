@@ -11,8 +11,19 @@ const dirname =
   typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
+  resolve: {
+    alias: { '@': path.join(dirname, 'src') }
+  },
   test: {
     projects: [
+      {
+        test: {
+          name: 'unit',
+          environment: 'jsdom',
+          include: ['src/**/*.{test,spec}.{ts,tsx}'],
+          setupFiles: ['src/test/setup.ts']
+        }
+      },
       {
         extends: true,
         plugins: [
