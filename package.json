@@ -14,7 +14,6 @@
   },
   "files": [
     "dist",
-    "src",
     "scripts"
   ],
   "scripts": {
@@ -43,8 +42,8 @@
     "type": "git",
     "url": "git+https://github.com/Phillipml/catastyle.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["react", "design-system", "styled-components", "components", "theme", "ui"],
+  "author": "Phillip (https://www.linkedin.com/in/phillip-menezes-desenvolvedor/)",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
