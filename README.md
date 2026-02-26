@@ -61,19 +61,31 @@ function App() {
 
 ## Componentes
 
-| Componente     | Descrição                          |
-|----------------|------------------------------------|
-| `Button`       | Botão com variantes de estilo      |
-| `Checkbox`     | Caixa de seleção                   |
-| `Footer`       | Rodapé de página                   |
-| `Input`       | Campo de texto                     |
-| `Label`        | Rótulo para formulários            |
-| `Link`         | Link (integra com react-router-dom)|
-| `Logo`         | Logo com suporte a tema claro/escuro |
-| `Main`         | Container principal de conteúdo     |
-| `Text`         | Parágrafo/texto                    |
-| `ThemeButton`  | Botão para alternar tema           |
-| `Title`        | Título                             |
+| Componente     | Descrição                                                                 |
+|----------------|----------------------------------------------------------------------------|
+| `Button`       | Botão com variantes de estilo                                             |
+| `Checkbox`     | Caixa de seleção                                                          |
+| `Footer`       | Rodapé de página; aceita `children` para conteúdo customizável            |
+| `Input`        | Campo de texto (inclui toggle de visibilidade para tipo password)         |
+| `Label`        | Rótulo para formulários                                                   |
+| `Link`         | Link externo ou interno (integra com react-router-dom via `$isInternal`)   |
+| `Logo`         | Logo com suporte a tema claro/escuro                                      |
+| `Main`         | Container principal com ThemeProvider, GlobalStyle e ThemeButton          |
+| `Text`         | Parágrafo ou texto inline (`as="p"` ou `as="span"`)                      |
+| `ThemeButton`  | Botão para alternar tema claro/escuro                                     |
+| `Title`        | Título                                                                     |
+
+### Exemplo: Footer customizável
+
+O `Footer` recebe `children`; o conteúdo fica a cargo do projeto consumidor:
+
+```tsx
+import { Footer, Text } from 'catastyle'
+
+<Footer>
+  <Text as="p">© {new Date().getFullYear()} Minha Empresa - Todos os direitos reservados</Text>
+</Footer>
+```
 
 ## Temas
 
@@ -134,24 +146,65 @@ export const logoDark: string = '/src/assets/logo-dark.svg'
 - **Tipos:** `WidthType`, `FontSizeType`, `FontSize`, `BreakpointType`
 - **Utilitários:** `fontSizeToRem`, `mdScreen`, `smScreen`
 
+## Testes
+
+O projeto usa **Vitest** e **React Testing Library** para testes unitários dos componentes e utilitários.
+
+```bash
+# Rodar todos os testes (modo watch)
+npm test
+
+# Rodar testes unitários uma vez
+npm run test:unit
+
+# Rodar com cobertura
+npm run test:coverage
+```
+
 ## Desenvolvimento
 
 ```bash
+# Instalar dependências
+npm install
+
 # Build da biblioteca
 npm run build
 
-# Modo watch
+# Modo watch (rebuild ao editar)
 npm run dev
 
-# Storybook
+# Lint (verificar / corrigir)
+npm run lint:check
+npm run lint
+
+# Testes
+npm run test:unit
+
+# Storybook (documentação e exemplos dos componentes)
 npm run storybook
 ```
+
+## CI/CD
+
+O repositório usa **GitHub Actions** para garantir qualidade em todo push e pull request:
+
+- **Lint** — `npm run lint:check`
+- **Testes unitários** — `npm run test:unit`
+- **Build** — `npm run build`
+
+O workflow está em `.github/workflows/ci.yml` e roda em qualquer branch.
 
 ## Estrutura do pacote
 
 - **`main`:** `./dist/index.js` (CommonJS)
 - **`module`:** `./dist/index.mjs` (ESM)
 - **`types`:** `./dist/index.d.ts`
+
+## Sobre o projeto
+
+Projeto **autoral**, desenvolvido com intuito de **estudo** e de criar uma biblioteca reutilizável que possa ser **integrada a outros projetos**. O Catastyle é mantido de forma independente e está disponível para uso e contribuição.
+
+- Repositório: [github.com/Phillipml/catastyle](https://github.com/Phillipml/catastyle)
 
 ## Licença
 
