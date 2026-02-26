@@ -26,6 +26,7 @@
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "postinstall": "node scripts/postinstall.js",
+    "prepublishOnly": "npm run build",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
