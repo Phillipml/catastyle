@@ -1,5 +1,5 @@
 import { MemoryRouter } from 'react-router-dom'
-import { renderWithTheme, screen, fireEvent } from '@/test/utils'
+import { renderWithTheme, screen } from '@/test/utils'
 import Link from './Link'
 
 describe('Link', () => {
