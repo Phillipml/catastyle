@@ -12,13 +12,19 @@ const dirname =
 
 export default defineConfig({
   resolve: {
-    alias: { '@': path.join(dirname, 'src') }
+    alias: {
+      '@': path.join(dirname, 'src')
+    }
   },
   test: {
     projects: [
       {
+        resolve: {
+          alias: { '@': path.join(dirname, 'src') }
+        },
         test: {
           name: 'unit',
+          globals: true,
           environment: 'jsdom',
           include: ['src/**/*.{test,spec}.{ts,tsx}'],
           setupFiles: ['src/test/setup.ts']
