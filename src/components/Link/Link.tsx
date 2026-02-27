@@ -6,6 +6,7 @@ export type LinkType = {
   href?: string
   to?: string
   children: React.ReactNode
+  className?: string
   $target?: '_blank' | '_self'
   $isInternal?: boolean
 } & FontSizeType
@@ -14,6 +15,7 @@ const Link = ({
   href,
   to,
   children,
+  className,
   $target,
   $isInternal = false,
   $lgFontSize,
@@ -24,6 +26,7 @@ const Link = ({
     return (
       <RouterLink to={to} style={{ textDecoration: 'none', color: 'inherit' }}>
         <LinkStyled
+          className={className}
           $lgFontSize={$lgFontSize}
           $mdFontSize={$mdFontSize}
           $smFontSize={$smFontSize}
@@ -36,6 +39,7 @@ const Link = ({
 
   return (
     <LinkStyled
+      className={className}
       href={href}
       target={$target}
       $lgFontSize={$lgFontSize}

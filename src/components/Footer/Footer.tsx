@@ -1,7 +1,10 @@
 import { FooterStyled } from './styles'
-
-const Footer = ({ children }: { children: React.ReactNode }) => {
-  return <FooterStyled>{children}</FooterStyled>
+type FooterType = {
+  children: React.ReactNode
+  className?: string
+}
+const Footer = ({ children, className }: FooterType) => {
+  return <FooterStyled className={className}>{children}</FooterStyled>
 }
 
 export default Footer

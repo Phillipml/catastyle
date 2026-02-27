@@ -4,13 +4,14 @@ import LogoDark from '@/assets/logos/dark-theme.svg'
 import { useTheme } from 'styled-components'
 
 type ThemeButtonType = {
+  className?: string
   onClick?: () => void
 }
 
-const ThemeButton = ({ onClick }: ThemeButtonType) => {
+const ThemeButton = ({ className, onClick }: ThemeButtonType) => {
   const theme = useTheme()
   return (
-    <ThemeButtonStyled onClick={onClick}>
+    <ThemeButtonStyled className={className} onClick={onClick}>
       <img
         src={theme.bgColor === '#011F1F' ? LogoLight : LogoDark}
         alt="Theme Button"
