@@ -5,17 +5,20 @@ import { LabelStyled } from './styles'
 export type LabelType = {
   htmlFor: string
   children: React.ReactNode
+  className?: string
   color?: 'primary' | 'secondary'
 } & FontSizeType
 
 const Label = ({
   htmlFor,
   children,
+  className,
   $lgFontSize,
   $mdFontSize,
   $smFontSize
 }: LabelType) => (
   <LabelStyled
+    className={className}
     htmlFor={htmlFor}
     $lgFontSize={$lgFontSize}
     $mdFontSize={$mdFontSize}

@@ -45,4 +45,17 @@ describe('Input', () => {
     fireEvent.click(toggleButton)
     expect(input).toHaveAttribute('type', 'password')
   })
+
+  it('aplica className no wrapper', () => {
+    renderWithTheme(
+      <Input
+        type="text"
+        id="campo"
+        name="campo"
+        className="input-wrapper-custom"
+      />
+    )
+    const wrapper = screen.getByRole('textbox').closest('div')
+    expect(wrapper).toHaveClass('input-wrapper-custom')
+  })
 })

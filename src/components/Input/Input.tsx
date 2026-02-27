@@ -7,6 +7,7 @@ export type InputType = {
   type: string
   id: string
   name: string
+  className?: string
   placeholder?: string
   value?: string
   display?: string
@@ -21,6 +22,7 @@ const Input = ({
   type,
   id,
   name,
+  className,
   placeholder,
   display,
   $lgWidth,
@@ -38,6 +40,7 @@ const Input = ({
 
   return (
     <InputWrapper
+      className={className}
       display={display}
       $lgWidth={$lgWidth}
       $mdWidth={$mdWidth}

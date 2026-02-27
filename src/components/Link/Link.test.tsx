@@ -31,4 +31,15 @@ describe('Link', () => {
     expect(link).toBeInTheDocument()
     expect(link).toHaveAttribute('href', '/sobre')
   })
+
+  it('aplica className no elemento (link externo)', () => {
+    renderWithTheme(
+      <Link href="https://exemplo.com" className="link-custom">
+        Link
+      </Link>
+    )
+    expect(screen.getByRole('link', { name: /link/i })).toHaveClass(
+      'link-custom'
+    )
+  })
 })

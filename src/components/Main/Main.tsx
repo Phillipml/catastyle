@@ -6,8 +6,9 @@ import { getDarkTheme, getLightTheme } from '@/utils/themeLoader'
 
 export type MainType = {
   children: React.ReactNode
+  className?: string
 }
-const Main = ({ children }: MainType) => {
+const Main = ({ children, className }: MainType) => {
   const [darkTheme, setDarkTheme] = useState(false)
   function toggleTheme() {
     setDarkTheme(!darkTheme)
@@ -15,7 +16,7 @@ const Main = ({ children }: MainType) => {
   return (
     <ThemeProvider theme={darkTheme ? getDarkTheme() : getLightTheme()}>
       <GlobalStyle />
-      <MainContainer>
+      <MainContainer className={className}>
         <ThemeButton onClick={toggleTheme} />
         {children}
       </MainContainer>

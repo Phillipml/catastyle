@@ -18,4 +18,13 @@ describe('Text', () => {
     const el = screen.getByText('Texto inline')
     expect(el.tagName).toBe('SPAN')
   })
+
+  it('aplica className no elemento', () => {
+    renderWithTheme(
+      <Text as="p" className="paragrafo-custom">
+        Parágrafo
+      </Text>
+    )
+    expect(screen.getByText('Parágrafo')).toHaveClass('paragrafo-custom')
+  })
 })

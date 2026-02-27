@@ -3,6 +3,7 @@ import { ButtonStyled } from './styles'
 
 export type ButtonType = {
   children: React.ReactNode
+  className?: string
   id?: string
   onClick?: () => void
   disabled?: boolean
@@ -13,6 +14,7 @@ export type ButtonType = {
 
 const Button = ({
   children,
+  className,
   onClick,
   disabled,
   $lgWidth,
@@ -26,6 +28,7 @@ const Button = ({
   id
 }: ButtonType) => (
   <ButtonStyled
+    className={className}
     onClick={onClick}
     disabled={disabled}
     $lgWidth={$lgWidth}

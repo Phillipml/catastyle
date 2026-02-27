@@ -31,4 +31,19 @@ describe('Checkbox', () => {
     renderWithTheme(<Checkbox id="opt" name="opt" checked children="Marcado" />)
     expect(screen.getByRole('checkbox')).toBeChecked()
   })
+
+  it('aplica className no elemento', () => {
+    renderWithTheme(
+      <Checkbox
+        id="opt"
+        name="opt"
+        className="checkbox-custom"
+        children="Opção"
+      />
+    )
+    const label = screen
+      .getByRole('checkbox', { name: /opção/i })
+      .closest('label')
+    expect(label).toHaveClass('checkbox-custom')
+  })
 })

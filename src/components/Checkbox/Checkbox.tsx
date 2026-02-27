@@ -6,6 +6,7 @@ export type CheckboxType = {
   id: string
   name: string
   checked?: boolean
+  className?: string
   $disabled?: boolean
   children: string
   display?: string
@@ -18,6 +19,7 @@ const Checkbox = ({
   id,
   name,
   checked,
+  className,
   $disabled,
   children,
   display,
@@ -31,6 +33,7 @@ const Checkbox = ({
   onChange
 }: CheckboxType) => (
   <CheckLabel
+    className={className}
     htmlFor={id}
     display={display}
     $lgWidth={$lgWidth}

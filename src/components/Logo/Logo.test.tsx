@@ -12,4 +12,10 @@ describe('Logo', () => {
     const img = screen.getByRole('img', { name: /logo/i })
     expect(img).toHaveAttribute('src')
   })
+
+  it('aplica className no elemento', () => {
+    renderWithTheme(<Logo className="logo-custom" />)
+    const wrapper = screen.getByRole('img', { name: /logo/i }).parentElement
+    expect(wrapper).toHaveClass('logo-custom')
+  })
 })
