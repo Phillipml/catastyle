@@ -8,7 +8,7 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  external: ['react', 'react-dom', 'styled-components', 'fs', 'path'],
+  external: ['react','react-dom','react-router-dom','styled-components', 'fs', 'path'],
   treeshake: true,
   esbuildOptions(options) {
     options.alias = {

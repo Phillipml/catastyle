@@ -1,6 +1,6 @@
 {
   "name": "catastyle",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Design System reutilizável com styled-components",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -14,7 +14,6 @@
   },
   "files": [
     "dist",
-    "src",
     "scripts"
   ],
   "scripts": {
@@ -27,6 +26,7 @@
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "postinstall": "node scripts/postinstall.js",
+    "prepublishOnly": "npm run build",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -43,8 +43,8 @@
     "type": "git",
     "url": "git+https://github.com/Phillipml/catastyle.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["react", "design-system", "styled-components", "components", "theme", "ui"],
+  "author": "Phillip (https://www.linkedin.com/in/phillip-menezes-desenvolvedor/)",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {

@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 const packageRoot = path.join(__dirname, '..')
-const userProjectRoot = process.cwd()
+const userProjectRoot = path.join(packageRoot, '..', '..')
 
 const configTargetDir = path.join(userProjectRoot, 'src', 'catastyle', 'config')
 const logoConfigTemplate = path.join(__dirname, 'templates', 'logo.config.ts.template')
