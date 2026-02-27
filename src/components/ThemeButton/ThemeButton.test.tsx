@@ -15,4 +15,9 @@ describe('ThemeButton', () => {
     fireEvent.click(screen.getByRole('button'))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
+
+  it('aplica className no elemento', () => {
+    renderWithTheme(<ThemeButton className="theme-btn-custom" />)
+    expect(screen.getByRole('button')).toHaveClass('theme-btn-custom')
+  })
 })

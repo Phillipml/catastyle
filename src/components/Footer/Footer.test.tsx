@@ -11,4 +11,14 @@ describe('Footer', () => {
     )
     expect(screen.getByText('Conteúdo do Footer')).toBeInTheDocument()
   })
+
+  it('aplica className no elemento', () => {
+    renderWithTheme(
+      <Footer className="footer-custom">
+        <Text as="p">Rodapé</Text>
+      </Footer>
+    )
+    const footer = screen.getByText('Rodapé').closest('footer')
+    expect(footer).toHaveClass('footer-custom')
+  })
 })

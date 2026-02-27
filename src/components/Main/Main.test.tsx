@@ -22,4 +22,10 @@ describe('Main', () => {
     fireEvent.click(themeButton)
     expect(themeButton).toBeInTheDocument()
   })
+
+  it('aplica className no MainContainer', () => {
+    render(<Main className="main-custom">Conteúdo</Main>)
+    const main = screen.getByText('Conteúdo').closest('main')
+    expect(main).toHaveClass('main-custom')
+  })
 })

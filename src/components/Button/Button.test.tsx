@@ -38,4 +38,9 @@ describe('Button', () => {
     renderWithTheme(<Button id="meu-botao">Botão</Button>)
     expect(screen.getByRole('button')).toHaveAttribute('id', 'meu-botao')
   })
+
+  it('aplica className no elemento', () => {
+    renderWithTheme(<Button className="minha-classe">Botão</Button>)
+    expect(screen.getByRole('button')).toHaveClass('minha-classe')
+  })
 })

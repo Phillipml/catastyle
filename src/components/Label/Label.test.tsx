@@ -8,4 +8,13 @@ describe('Label', () => {
     expect(label).toBeInTheDocument()
     expect(label).toHaveAttribute('for', 'campo-email')
   })
+
+  it('aplica className no elemento', () => {
+    renderWithTheme(
+      <Label htmlFor="campo" className="label-custom">
+        Rótulo
+      </Label>
+    )
+    expect(screen.getByText('Rótulo')).toHaveClass('label-custom')
+  })
 })

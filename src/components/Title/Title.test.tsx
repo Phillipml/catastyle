@@ -16,4 +16,13 @@ describe('Title', () => {
     renderWithTheme(<Title color="secondary">Secondary</Title>)
     expect(screen.getByText('Secondary')).toBeInTheDocument()
   })
+
+  it('aplica className no elemento', () => {
+    renderWithTheme(
+      <Title color="primary" className="titulo-custom">
+        Título
+      </Title>
+    )
+    expect(screen.getByText('Título')).toHaveClass('titulo-custom')
+  })
 })
