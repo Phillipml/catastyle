@@ -9,7 +9,7 @@ const meta: Meta<typeof Logo> = {
     docs: {
       description: {
         component:
-          'Logo que alterna automaticamente entre as versões claro/escuro conforme o tema atual (use a toolbar **Theme** para trocar). Os assets podem ser customizados via `src/catastyle/config/logo.config.ts`.'
+          'Logo que alterna automaticamente entre as versões claro/escuro conforme o tema atual (use a toolbar **Theme** para trocar). Os assets podem ser customizados em `src/catastyle/config/catastyle.config.ts`.'
       }
     }
   },
