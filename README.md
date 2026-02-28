@@ -99,13 +99,14 @@ Após instalar o pacote, o script **postinstall** cria em seu projeto a pasta de
 
 ```
 src/catastyle/config/
-├── theme.config.ts
-└── logo.config.ts
+└── catastyle.config.ts
 ```
+
+Temas, logos e ícones do ThemeButton são configurados no mesmo arquivo.
 
 ### Temas customizados
 
-Edite `src/catastyle/config/theme.config.ts` e defina `darkTheme` e/ou `lightTheme`. Se forem `null`, os temas padrão do Catastyle são usados.
+Edite `src/catastyle/config/catastyle.config.ts` e defina `darkTheme` e/ou `lightTheme`. Se forem `null`, os temas padrão do Catastyle são usados.
 
 Exemplo de tema customizado:
 
@@ -133,11 +134,13 @@ export const lightTheme: DefaultTheme | null = {
 
 Os **logos padrão** do Catastyle vêm embutidos no pacote (data URL) e funcionam em qualquer bundler (Vite, Webpack, etc.) sem configuração extra.
 
-Para usar seus próprios SVGs, edite `src/catastyle/config/logo.config.ts` e defina os caminhos. Use `'default'` para manter os logos do Catastyle. Os caminhos devem ser os que o seu projeto consegue resolver (ex.: caminho público ou URL).
+Para usar seus próprios SVGs, edite `src/catastyle/config/catastyle.config.ts` e defina os caminhos em `logoLight`/`logoDark` e, se quiser, em `iconLight`/`iconDark` (ícone do ThemeButton). Use `'default'` para manter os padrão do Catastyle. Os caminhos devem ser os que o seu projeto consegue resolver (ex.: caminho público ou URL).
 
 ```ts
 export const logoLight: string = '/src/assets/logo-light.svg'
 export const logoDark: string = '/src/assets/logo-dark.svg'
+export const iconLight: string = 'default'  // ou mesmo path do logo
+export const iconDark: string = 'default'
 ```
 
 ## Exports adicionais
