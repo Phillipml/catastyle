@@ -12,7 +12,7 @@ const ThemeButton = ({ className, onClick }: ThemeButtonType) => {
   return (
     <ThemeButtonStyled className={className} onClick={onClick}>
       <img
-        src={isDarkTheme ? getIconDark() : getIconLight()}
+        src={isDarkTheme ? getIconLight() : getIconDark()}
         alt="Theme Button"
       />
     </ThemeButtonStyled>
