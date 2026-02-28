@@ -1,12 +1,44 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { ButtonStyled } from '@/components/Button/styles'
-
-export const ThemeButton = styled(ButtonStyled)`
+type Position = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+type ButtonPosition = { $position?: Position }
+const position = [
+  {
+    'top-right': css`
+      top: 1.25rem;
+      right: 1.25rem;
+    `
+  },
+  {
+    'top-left': css`
+      top: 1.25rem;
+      left: 1.25rem;
+    `
+  },
+  {
+    'bottom-right': css`
+      bottom: 1.25rem;
+      right: 1.25rem;
+    `
+  },
+  {
+    'bottom-left': css`
+      bottom: 1.25rem;
+      left: 1.25rem;
+    `
+  }
+]
+const getPosition = (key: Position) =>
+  (
+    position.find((pos) => key in pos) as
+      | Record<Position, ReturnType<typeof css>>
+      | undefined
+  )?.[key]
+export const ThemeButton = styled(ButtonStyled)<ButtonPosition>`
   position: fixed;
   width: 3rem;
   height: 3rem;
-  top: 1.25rem;
-  right: 1.25rem;
+  ${(props) => getPosition(props.$position ?? 'bottom-right')}
   z-index: 9999;
   border-radius: 50%;
   padding: 1%;

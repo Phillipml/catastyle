@@ -5,12 +5,21 @@ import { getIconDark, getIconLight } from '@/utils/logoLoader'
 type ThemeButtonType = {
   className?: string
   onClick?: () => void
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
 }
-const ThemeButton = ({ className, onClick }: ThemeButtonType) => {
+const ThemeButton = ({
+  className,
+  onClick,
+  position = 'bottom-right'
+}: ThemeButtonType) => {
   const theme = useTheme()
   const isDarkTheme = theme.bgColor === '#011F1F'
   return (
-    <ThemeButtonStyled className={className} onClick={onClick}>
+    <ThemeButtonStyled
+      className={className}
+      onClick={onClick}
+      $position={position}
+    >
       <img
         src={isDarkTheme ? getIconLight() : getIconDark()}
         alt="Theme Button"
