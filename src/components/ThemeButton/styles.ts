@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { ButtonStyled } from '@/components/Button/styles'
-type Position = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
-type ButtonPosition = { $position?: Position }
+export type ThemeButtonPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+type ButtonPosition = { $position?: ThemeButtonPosition }
 const position = [
   {
     'top-right': css`
@@ -28,10 +28,10 @@ const position = [
     `
   }
 ]
-const getPosition = (key: Position) =>
+const getPosition = (key: ThemeButtonPosition) =>
   (
     position.find((pos) => key in pos) as
-      | Record<Position, ReturnType<typeof css>>
+      | Record<ThemeButtonPosition, ReturnType<typeof css>>
       | undefined
   )?.[key]
 export const ThemeButton = styled(ButtonStyled)<ButtonPosition>`
