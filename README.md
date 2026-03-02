@@ -130,6 +130,23 @@ export const lightTheme: DefaultTheme | null = {
 }
 ```
 
+**Para as cores atualizarem ao editar o config** (ex.: com HMR no dev), importe o config no seu App e passe os temas para o `Main`:
+
+```tsx
+import { Main } from 'catastyle'
+import { darkTheme, lightTheme } from './catastyle/config/catastyle.config'
+
+function App() {
+  return (
+    <Main darkTheme={darkTheme} lightTheme={lightTheme}>
+      {/* ... */}
+    </Main>
+  )
+}
+```
+
+Assim o config entra no bundle e alterações em `catastyle.config.ts` refletem ao salvar.
+
 ### Logos customizados
 
 Os **logos padrão** do Catastyle vêm embutidos no pacote (data URL) e funcionam em qualquer bundler (Vite, Webpack, etc.) sem configuração extra.

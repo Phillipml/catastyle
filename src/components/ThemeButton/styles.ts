@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components'
 import { ButtonStyled } from '@/components/Button/styles'
-export type ThemeButtonPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+export type ThemeButtonPosition =
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-left'
 type ButtonPosition = { $position?: ThemeButtonPosition }
 const position = [
   {
