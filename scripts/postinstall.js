@@ -5,11 +5,8 @@ const packageRoot = path.join(__dirname, '..')
 const userProjectRoot = path.join(packageRoot, '..', '..')
 
 const configTargetDir = path.join(userProjectRoot, 'src', 'catastyle', 'config')
-const logoConfigTemplate = path.join(__dirname, 'templates', 'logo.config.ts.template')
-const themeConfigTemplate = path.join(__dirname, 'templates', 'theme.config.ts.template')
-
-const logoConfigFile = path.join(configTargetDir, 'logo.config.ts')
-const themeConfigFile = path.join(configTargetDir, 'theme.config.ts')
+const catastyleConfigTemplate = path.join(__dirname, 'templates', 'catastyle.config.ts.template')
+const catastyleConfigFile = path.join(configTargetDir, 'catastyle.config.ts')
 
 function createConfigFile(templatePath, targetPath, type) {
   try {
@@ -42,8 +39,7 @@ function createConfigFile(templatePath, targetPath, type) {
 
 console.log('📦 Catastyle: Setting up configuration files...')
 
-createConfigFile(logoConfigTemplate, logoConfigFile, 'logo')
-createConfigFile(themeConfigTemplate, themeConfigFile, 'theme')
+createConfigFile(catastyleConfigTemplate, catastyleConfigFile, 'catastyle')
 
 console.log('✨ Catastyle setup complete!')
-console.log('💡 You can now customize logos and themes in src/catastyle/config/')
+console.log('💡 You can now customize themes, logos and icons in src/catastyle/config/catastyle.config.ts')

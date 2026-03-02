@@ -1,19 +1,27 @@
 import { ThemeButton as ThemeButtonStyled } from './styles'
-import LogoLight from '@/assets/logos/light-theme.svg'
-import LogoDark from '@/assets/logos/dark-theme.svg'
 import { useTheme } from 'styled-components'
+import { getIconDark, getIconLight } from '@/utils/logoLoader'
 
 type ThemeButtonType = {
   className?: string
   onClick?: () => void
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
 }
-
-const ThemeButton = ({ className, onClick }: ThemeButtonType) => {
+const ThemeButton = ({
+  className,
+  onClick,
+  position = 'bottom-right'
+}: ThemeButtonType) => {
   const theme = useTheme()
+  const isDarkTheme = theme.bgColor === '#011F1F'
   return (
-    <ThemeButtonStyled className={className} onClick={onClick}>
+    <ThemeButtonStyled
+      className={className}
+      onClick={onClick}
+      $position={position}
+    >
       <img
-        src={theme.bgColor === '#011F1F' ? LogoLight : LogoDark}
+        src={isDarkTheme ? getIconLight() : getIconDark()}
         alt="Theme Button"
       />
     </ThemeButtonStyled>

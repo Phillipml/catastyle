@@ -1,6 +1,6 @@
 vi.mock('path', () => ({
   default: {
-    join: () => '/nonexistent/theme.config.ts'
+    join: () => '/nonexistent/catastyle.config.ts'
   }
 }))
 describe('themeloader', () => {

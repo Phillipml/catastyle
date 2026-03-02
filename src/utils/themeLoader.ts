@@ -18,7 +18,7 @@ function tryLoadUserThemeConfig(): {
       'src',
       'catastyle',
       'config',
-      'theme.config.ts'
+      'catastyle.config.ts'
     )
 
     try {
