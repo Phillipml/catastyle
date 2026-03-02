@@ -13,7 +13,7 @@ const ThemeButton = ({
   position = 'bottom-right'
 }: ThemeButtonType) => {
   const theme = useTheme()
-  const isDarkTheme = theme.bgColor === '#011F1F'
+  const isDarkTheme = theme.isDark === true
   return (
     <ThemeButtonStyled
       className={className}

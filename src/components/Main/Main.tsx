@@ -10,7 +10,6 @@ export type MainType = {
   children: React.ReactNode
   className?: string
   position?: ThemeButtonPosition
-  /** Temas customizados. Passe os valores do seu catastyle.config para as cores refletirem ao editar (ex.: import no App e repasse). */
   darkTheme?: DefaultTheme | null
   lightTheme?: DefaultTheme | null
 }
@@ -29,7 +28,7 @@ const Main = ({
     ? (darkThemeProp ?? getDarkTheme())
     : (lightThemeProp ?? getLightTheme())
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{ ...theme, isDark: darkTheme }}>
       <GlobalStyle />
       <MainContainer className={className}>
         <ThemeButton
