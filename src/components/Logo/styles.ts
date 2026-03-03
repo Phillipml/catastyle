@@ -8,6 +8,7 @@ export const LogoStyled = styled.div<WidthType>`
     width: 100%;
     height: auto;
     display: block;
+    object-fit: contain;
   }
 
   ${mdScreen} {

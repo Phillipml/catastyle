@@ -23,13 +23,3 @@ export const lightTheme: DefaultTheme | null = {
   linkColor: '#006633'
 }
 */
-
-// LOGOS
-// Caminho para SVG customizado ou 'default' para usar os do Catastyle.
-// Exemplo: '/src/assets/logo-light.svg'
-export const logoLight: string = 'default'
-export const logoDark: string = 'default'
-
-// ÍCONES
-export const iconLight: string = 'default'
-export const iconDark: string = 'default'

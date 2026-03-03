@@ -6,24 +6,28 @@ type ThemeButtonType = {
   className?: string
   onClick?: () => void
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+  iconLight?: string
+  iconDark?: string
 }
 const ThemeButton = ({
   className,
   onClick,
-  position = 'bottom-right'
+  position = 'bottom-right',
+  iconLight,
+  iconDark
 }: ThemeButtonType) => {
   const theme = useTheme()
   const isDarkTheme = theme.isDark === true
+  const src = isDarkTheme
+    ? (iconLight ?? getIconLight())
+    : (iconDark ?? getIconDark())
   return (
     <ThemeButtonStyled
       className={className}
       onClick={onClick}
       $position={position}
     >
-      <img
-        src={isDarkTheme ? getIconLight() : getIconDark()}
-        alt="Theme Button"
-      />
+      <img src={src} alt="Theme Button" />
     </ThemeButtonStyled>
   )
 }

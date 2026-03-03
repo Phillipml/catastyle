@@ -12,13 +12,19 @@ export type MainType = {
   position?: ThemeButtonPosition
   darkTheme?: DefaultTheme | null
   lightTheme?: DefaultTheme | null
+  centered?: boolean
+  iconLight?: string
+  iconDark?: string
 }
 const Main = ({
   children,
   className,
   position,
   darkTheme: darkThemeProp,
-  lightTheme: lightThemeProp
+  lightTheme: lightThemeProp,
+  centered = true,
+  iconLight,
+  iconDark
 }: MainType) => {
   const [darkTheme, setDarkTheme] = useState(false)
   function toggleTheme() {
@@ -30,10 +36,12 @@ const Main = ({
   return (
     <ThemeProvider theme={{ ...theme, isDark: darkTheme }}>
       <GlobalStyle />
-      <MainContainer className={className}>
+      <MainContainer className={className} $centered={centered}>
         <ThemeButton
           onClick={toggleTheme}
           {...(position !== undefined && { position })}
+          {...(iconLight !== undefined && { iconLight })}
+          {...(iconDark !== undefined && { iconDark })}
         />
         {children}
       </MainContainer>
