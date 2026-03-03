@@ -7,5 +7,6 @@ declare module 'styled-components' {
     tertiaryColor: string
     bgColor: string
     linkColor: string
+    isDark?:boolean
   }
 }

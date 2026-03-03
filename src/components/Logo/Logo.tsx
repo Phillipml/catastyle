@@ -9,7 +9,7 @@ type LogoProps = {
 
 const Logo = ({ className, $lgWidth, $mdWidth, $smWidth }: LogoProps) => {
   const theme = useTheme()
-  const isDarkTheme = theme.bgColor === '#011F1F'
+  const isDarkTheme = theme.isDark === true
 
   return (
     <LogoStyled
