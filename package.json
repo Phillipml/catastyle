@@ -1,6 +1,6 @@
 {
   "name": "catastyle",
-  "version": "0.2.4",
+  "version": "0.2.6",
   "description": "Design System reutilizável com styled-components",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

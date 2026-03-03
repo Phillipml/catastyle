@@ -1,6 +1,6 @@
 # Catastyle
 
-Design System reutilizável baseado em **React** e **styled-components**, com temas claro/escuro, componentes acessíveis e suporte a customização via arquivos de configuração no projeto consumidor.
+Design System reutilizável baseado em **React** e **styled-components**, com temas claro/escuro, componentes acessíveis e customização via arquivo de configuração no projeto consumidor.
 
 ## Instalação
 
@@ -12,7 +12,7 @@ npm install catastyle react react-dom styled-components react-router-dom
 
 ### Projetos com Vite
 
-Em projetos que usam **Vite**, configure `resolve.dedupe` para garantir uma única instância de React e styled-components (evita erros de contexto e duplicação de tema):
+Em projetos que usam **Vite**, configure `resolve.dedupe` para garantir uma única instância de React e styled-components:
 
 ```ts
 // vite.config.ts
@@ -27,9 +27,44 @@ export default defineConfig({
 })
 ```
 
-## Uso básico
+## Uso recomendado: componente Main
 
-Envolva sua aplicação com `ThemeProvider` e `GlobalStyle`:
+A forma mais simples é usar o **Main**: ele já inclui `ThemeProvider`, `GlobalStyle`, `MainContainer` e o **ThemeButton** (botão para alternar tema). Você só precisa passar os `children`.
+
+```tsx
+import { Main, Logo, Title, Text, Button } from 'catastyle'
+
+function App() {
+  return (
+    <Main>
+      <Logo />
+      <Title color="primary">Olá, Catastyle</Title>
+      <Text as="p">Design system pronto para uso.</Text>
+      <Button>Clique aqui</Button>
+    </Main>
+  )
+}
+```
+
+### Props do Main
+
+| Prop           | Tipo                    | Padrão   | Descrição                                                                 |
+|----------------|-------------------------|----------|----------------------------------------------------------------------------|
+| `children`     | `React.ReactNode`       | —        | Conteúdo da página                                                        |
+| `centered`     | `boolean`              | `true`   | Se `true`: layout centralizado, largura até 1440px, altura 100vh          |
+| `position`     | `ThemeButtonPosition`   | —        | Posição do ThemeButton (`'top-right'`, `'top-left'`, `'bottom-right'`, `'bottom-left'`) |
+| `darkTheme`    | `DefaultTheme \| null`   | —        | Tema escuro customizado (null = tema padrão do Catastyle)                  |
+| `lightTheme`   | `DefaultTheme \| null`   | —        | Tema claro customizado (null = tema padrão)                               |
+| `iconLight`    | `string`                | —        | URL/import do ícone do ThemeButton no tema claro                           |
+| `iconDark`     | `string`                | —        | URL/import do ícone do ThemeButton no tema escuro                          |
+| `className`    | `string`                | —        | Classe CSS aplicada ao container                                          |
+
+- **`centered={true}`** (padrão): o container usa `width: 100vw`, `max-width: 1440px`, `height: 100vh`, fica centralizado na tela (`margin: 0 auto`) e o conteúdo é centralizado com flexbox.
+- **`centered={false}`**: o container usa `width: 100%`, sem limite de largura nem altura fixa; conteúdo alinhado ao topo.
+
+## Uso avançado (sem Main)
+
+Se preferir controlar tema e layout manualmente:
 
 ```tsx
 import {
@@ -42,17 +77,19 @@ import {
   Title,
   Text,
 } from 'catastyle'
+import { useState } from 'react'
 
 function App() {
-  const [theme, setTheme] = useState(DarkTheme)
+  const [dark, setDark] = useState(true)
+  const theme = dark ? DarkTheme : LightTheme
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <MainContainer>
-        <Title>Olá, Catastyle</Title>
-        <Text>Design system pronto para uso.</Text>
-        <Button>Clique aqui</Button>
+        <Title color="primary">Olá, Catastyle</Title>
+        <Text as="p">Design system pronto para uso.</Text>
+        <Button onClick={() => setDark(!dark)}>Trocar tema</Button>
       </MainContainer>
     </ThemeProvider>
   )
@@ -62,53 +99,41 @@ function App() {
 ## Componentes
 
 | Componente     | Descrição                                                                 |
-|----------------|----------------------------------------------------------------------------|
+|----------------|---------------------------------------------------------------------------|
 | `Button`       | Botão com variantes de estilo                                             |
-| `Checkbox`     | Caixa de seleção                                                          |
-| `Footer`       | Rodapé de página; aceita `children` para conteúdo customizável            |
+| `Checkbox`     | Caixa de seleção; `children` é o rótulo (string)                          |
+| `Footer`       | Rodapé; aceita `children` para conteúdo customizável                      |
 | `Input`        | Campo de texto (inclui toggle de visibilidade para tipo password)         |
-| `Label`        | Rótulo para formulários                                                   |
-| `Link`         | Link externo ou interno (integra com react-router-dom via `$isInternal`)   |
-| `Logo`         | Logo com suporte a tema claro/escuro; aceita `logoLight`/`logoDark` opcionais (SVG importado); se não passar, usa o padrão do Catastyle |
-| `Main`         | Container principal com ThemeProvider, GlobalStyle e ThemeButton          |
-| `Text`         | Parágrafo ou texto inline (`as="p"` ou `as="span"`)                      |
-| `ThemeButton`  | Botão para alternar tema claro/escuro; aceita `iconLight`/`iconDark` opcionais (SVG importado); se não passar, usa o padrão do Catastyle |
-| `Title`        | Título                                                                     |
-
-### Exemplo: Footer customizável
-
-O `Footer` recebe `children`; o conteúdo fica a cargo do projeto consumidor:
-
-```tsx
-import { Footer, Text } from 'catastyle'
-
-<Footer>
-  <Text as="p">© {new Date().getFullYear()} Minha Empresa - Todos os direitos reservados</Text>
-</Footer>
-```
+| `Label`        | Rótulo para formulários                                                    |
+| `Link`         | Link externo ou interno (react-router-dom via `$isInternal`)               |
+| `Logo`         | Logo que alterna com o tema; aceita `logoLight` e `logoDark` (SVG/URL); se não passar, usa o padrão do Catastyle |
+| `Main`         | Container principal com ThemeProvider, GlobalStyle e ThemeButton; aceita `centered`, temas e ícones |
+| `Text`         | Parágrafo ou texto inline (`as="p"` ou `as="span"`)                       |
+| `ThemeButton`  | Botão para alternar tema; aceita `iconLight` e `iconDark`; se não passar, usa o padrão |
+| `Title`        | Título; aceita `children` como `React.ReactNode` (texto ou JSX, ex. com `<br />`) |
 
 ## Temas
 
-- **`DarkTheme`** e **`LightTheme`** — temas padrão do design system.
-- Use `ThemeProvider` do `styled-components` (re-exportado) para aplicar o tema.
-- Troca de tema: altere o objeto passado para `theme` no `ThemeProvider` (ex.: entre `DarkTheme` e `LightTheme`).
+- **`DarkTheme`** e **`LightTheme`** — temas padrão exportados pelo pacote.
+- O **Main** injeta no tema a propriedade **`isDark`** (`boolean`) para que componentes como Logo e ThemeButton saibam qual tema está ativo.
+- Para temas customizados, use o arquivo de config no projeto consumidor (ver abaixo).
 
 ## Customização (projeto consumidor)
 
-Após instalar o pacote, o script **postinstall** cria apenas a pasta de configuração (nenhuma pasta de logos, ícones ou temas é copiada; os padrões vêm do pacote):
+Após `npm install`, o script **postinstall** cria a pasta e o arquivo de configuração (apenas temas; logos e ícones não vêm do config):
 
 ```
 src/catastyle/
 └── catastyle.config.ts
 ```
 
-Nesse arquivo você configura apenas **temas**. Logo e ícone do ThemeButton são definidos pelas props nos componentes (ou no `Main`); se não forem passados, usam os padrão do Catastyle.
+Nesse arquivo você configura **apenas temas**. Logo e ícone do ThemeButton são definidos pelas **props** nos componentes (ou no Main); se não forem passados, usam os padrões do Catastyle.
 
 ### Temas customizados
 
 Edite `src/catastyle/catastyle.config.ts` e defina `darkTheme` e/ou `lightTheme`. Se forem `null`, os temas padrão do Catastyle são usados.
 
-Exemplo de tema customizado:
+Exemplo:
 
 ```ts
 import type { DefaultTheme } from 'styled-components'
@@ -130,7 +155,7 @@ export const lightTheme: DefaultTheme | null = {
 }
 ```
 
-**Para as cores atualizarem ao editar o config** (ex.: com HMR no dev), importe o config no seu App e passe os temas para o `Main`:
+Para as cores atualizarem ao editar o config (ex.: com HMR), importe o config no App e passe os temas para o **Main**:
 
 ```tsx
 import { Main } from 'catastyle'
@@ -145,11 +170,12 @@ function App() {
 }
 ```
 
-Assim o config entra no bundle e alterações em `catastyle.config.ts` refletem ao salvar.
-
 ### Logos e ícones customizados
 
-Se não passar logo ou ícone, a **Logo** e o **ThemeButton** usam os padrões do Catastyle. Para usar os seus, importe os SVGs e passe como props:
+- **Logo:** importe os SVGs e passe `logoLight` e `logoDark` no componente **Logo**.
+- **ThemeButton:** importe os SVGs e passe `iconLight` e `iconDark` no **ThemeButton** ou no **Main** (o Main repassa para o ThemeButton).
+
+Exemplo:
 
 ```tsx
 import { Logo, Main } from 'catastyle'
@@ -160,78 +186,57 @@ import logoEscuro from '@/assets/meu-logo-escuro.svg'
 ```
 
 ```tsx
-import { ThemeButton } from 'catastyle'
+import { Main } from 'catastyle'
 import iconClaro from '@/assets/meu-icone-claro.svg'
 import iconEscuro from '@/assets/meu-icone-escuro.svg'
 
-<ThemeButton iconLight={iconClaro} iconDark={iconEscuro} />
+<Main iconLight={iconClaro} iconDark={iconEscuro}>
+  {/* ... */}
+</Main>
 ```
 
-Logo e ícone são definidos pelas props em `<Logo>` e `<ThemeButton>` (ou repassados pelo `Main`); o arquivo `catastyle.config.ts` é apenas para temas.
+O arquivo `catastyle.config.ts` **não** define logo nem ícone; apenas temas.
 
-## Exports adicionais
+## Exports
 
-- **Estilos globais:** `GlobalStyle`, `MainContainer`
+- **Componentes:** `Button`, `Checkbox`, `Footer`, `Input`, `Label`, `Link`, `Logo`, `Main`, `Text`, `ThemeButton`, `Title`
+- **Temas:** `DarkTheme`, `LightTheme`
+- **Estilos:** `GlobalStyle`, `MainContainer`, `ThemeProvider` (styled-components)
 - **Tipos:** `WidthType`, `FontSizeType`, `FontSize`, `BreakpointType`
-- **Utilitários:** `fontSizeToRem`, `mdScreen`, `smScreen`
+- **Utilitários:** `fontSizeToRem`, `mdScreen`, `smScreen` (media queries)
 
 ## Testes
 
-O projeto usa **Vitest** e **React Testing Library** para testes unitários dos componentes e utilitários.
-
 ```bash
-# Rodar todos os testes (modo watch)
-npm test
-
-# Rodar testes unitários uma vez
-npm run test:unit
-
-# Rodar com cobertura
+npm test          # watch
+npm run test:unit # uma vez
 npm run test:coverage
 ```
 
 ## Desenvolvimento
 
 ```bash
-# Instalar dependências
 npm install
-
-# Build da biblioteca
 npm run build
-
-# Modo watch (rebuild ao editar)
-npm run dev
-
-# Lint (verificar / corrigir)
+npm run dev       # watch
 npm run lint:check
 npm run lint
-
-# Testes
-npm run test:unit
-
-# Storybook (documentação e exemplos dos componentes)
 npm run storybook
 ```
 
 ## CI/CD
 
-O repositório usa **GitHub Actions** para garantir qualidade em todo push e pull request:
-
-- **Lint** — `npm run lint:check`
-- **Testes unitários** — `npm run test:unit`
-- **Build** — `npm run build`
-
-O workflow está em `.github/workflows/ci.yml` e roda em qualquer branch.
+GitHub Actions em todo push/PR: lint, testes unitários e build. Workflow em `.github/workflows/ci.yml`.
 
 ## Estrutura do pacote
 
-- **`main`:** `./dist/index.js` (CommonJS)
-- **`module`:** `./dist/index.mjs` (ESM)
-- **`types`:** `./dist/index.d.ts`
+- **main:** `./dist/index.js` (CommonJS)
+- **module:** `./dist/index.mjs` (ESM)
+- **types:** `./dist/index.d.ts`
 
 ## Sobre o projeto
 
-Projeto **autoral**, desenvolvido com intuito de **estudo** e de criar uma biblioteca reutilizável que possa ser **integrada a outros projetos**. O Catastyle é mantido de forma independente e está disponível para uso e contribuição.
+Projeto **autoral**, para **estudo** e uso como biblioteca reutilizável em outros projetos.
 
 - Repositório: [github.com/Phillipml/catastyle](https://github.com/Phillipml/catastyle)
 
