@@ -5,11 +5,23 @@ import { getLogoLight, getLogoDark } from '@/utils/logoLoader'
 
 type LogoProps = {
   className?: string
+  logoLight?: string
+  logoDark?: string
 } & WidthType
 
-const Logo = ({ className, $lgWidth, $mdWidth, $smWidth }: LogoProps) => {
+const Logo = ({
+  className,
+  $lgWidth,
+  $mdWidth,
+  $smWidth,
+  logoLight,
+  logoDark
+}: LogoProps) => {
   const theme = useTheme()
   const isDarkTheme = theme.isDark === true
+  const src = isDarkTheme
+    ? (logoDark ?? getLogoDark())
+    : (logoLight ?? getLogoLight())
 
   return (
     <LogoStyled
@@ -18,7 +30,7 @@ const Logo = ({ className, $lgWidth, $mdWidth, $smWidth }: LogoProps) => {
       $mdWidth={$mdWidth}
       $smWidth={$smWidth}
     >
-      <img src={isDarkTheme ? getLogoDark() : getLogoLight()} alt="Logo" />
+      <img src={src} alt="Logo" />
     </LogoStyled>
   )
 }

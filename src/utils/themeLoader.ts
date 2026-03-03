@@ -17,7 +17,6 @@ function tryLoadUserThemeConfig(): {
       userProjectRoot,
       'src',
       'catastyle',
-      'config',
       'catastyle.config.ts'
     )
 

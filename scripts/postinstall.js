@@ -1,45 +1,50 @@
 const fs = require('fs')
 const path = require('path')
 
-const packageRoot = path.join(__dirname, '..')
-const userProjectRoot = path.join(packageRoot, '..', '..')
+const packageRoot = path.resolve(__dirname, '..')
+const isInstalledAsDependency = packageRoot.includes('node_modules')
+const userProjectRoot = isInstalledAsDependency
+  ? path.resolve(process.cwd(), '..', '..')
+  : path.resolve(packageRoot, '..')
 
-const configTargetDir = path.join(userProjectRoot, 'src', 'catastyle', 'config')
-const catastyleConfigTemplate = path.join(__dirname, 'templates', 'catastyle.config.ts.template')
-const catastyleConfigFile = path.join(configTargetDir, 'catastyle.config.ts')
+const catastyleDir = path.resolve(userProjectRoot, 'src', 'catastyle')
+const catastyleConfigTemplate = path.resolve(__dirname, 'templates', 'catastyle.config.ts.template')
+const catastyleConfigFile = path.resolve(catastyleDir, 'catastyle.config.ts')
 
 function createConfigFile(templatePath, targetPath, type) {
   try {
-    const srcDir = path.join(userProjectRoot, 'src')
+    if (!fs.existsSync(templatePath)) {
+      console.warn(`⚠️  Catastyle: template not found at ${templatePath}. Skipping.`)
+      return
+    }
+
+    const srcDir = path.resolve(userProjectRoot, 'src')
     if (!fs.existsSync(srcDir)) {
       fs.mkdirSync(srcDir, { recursive: true })
     }
 
-    if (!fs.existsSync(configTargetDir)) {
-      fs.mkdirSync(configTargetDir, { recursive: true })
+    if (!fs.existsSync(catastyleDir)) {
+      fs.mkdirSync(catastyleDir, { recursive: true })
     }
 
     if (fs.existsSync(targetPath)) {
-      console.log(`ℹ️  ${type} config file already exists. Skipped.`)
-      return
-    }
-
-    if (!fs.existsSync(templatePath)) {
-      console.warn(`⚠️  ${type} template not found. Skipping.`)
+      console.log('ℹ️  Catastyle: catastyle.config.ts already exists. Skipped.')
       return
     }
 
     const templateContent = fs.readFileSync(templatePath, 'utf-8')
     fs.writeFileSync(targetPath, templateContent, 'utf-8')
-    console.log(`✅ Created ${type} config file at ${targetPath}`)
+    console.log(`✅ Catastyle: created ${path.relative(userProjectRoot, targetPath)}`)
   } catch (error) {
-    console.error(`❌ Error creating ${type} config file:`, error.message)
+    console.error('❌ Catastyle postinstall:', error.message)
   }
 }
 
-console.log('📦 Catastyle: Setting up configuration files...')
+if (!isInstalledAsDependency) {
+  console.log('ℹ️  Catastyle: postinstall skipped (not installed as dependency).')
+  process.exit(0)
+}
 
+console.log('📦 Catastyle: Setting up config...')
 createConfigFile(catastyleConfigTemplate, catastyleConfigFile, 'catastyle')
-
-console.log('✨ Catastyle setup complete!')
-console.log('💡 You can now customize themes, logos and icons in src/catastyle/config/catastyle.config.ts')
+console.log('💡 Customize themes in src/catastyle/catastyle.config.ts')

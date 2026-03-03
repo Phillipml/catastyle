@@ -69,10 +69,10 @@ function App() {
 | `Input`        | Campo de texto (inclui toggle de visibilidade para tipo password)         |
 | `Label`        | Rótulo para formulários                                                   |
 | `Link`         | Link externo ou interno (integra com react-router-dom via `$isInternal`)   |
-| `Logo`         | Logo com suporte a tema claro/escuro                                      |
+| `Logo`         | Logo com suporte a tema claro/escuro; aceita `logoLight`/`logoDark` opcionais (SVG importado); se não passar, usa o padrão do Catastyle |
 | `Main`         | Container principal com ThemeProvider, GlobalStyle e ThemeButton          |
 | `Text`         | Parágrafo ou texto inline (`as="p"` ou `as="span"`)                      |
-| `ThemeButton`  | Botão para alternar tema claro/escuro                                     |
+| `ThemeButton`  | Botão para alternar tema claro/escuro; aceita `iconLight`/`iconDark` opcionais (SVG importado); se não passar, usa o padrão do Catastyle |
 | `Title`        | Título                                                                     |
 
 ### Exemplo: Footer customizável
@@ -95,18 +95,18 @@ import { Footer, Text } from 'catastyle'
 
 ## Customização (projeto consumidor)
 
-Após instalar o pacote, o script **postinstall** cria em seu projeto a pasta de configuração:
+Após instalar o pacote, o script **postinstall** cria apenas a pasta de configuração (nenhuma pasta de logos, ícones ou temas é copiada; os padrões vêm do pacote):
 
 ```
-src/catastyle/config/
+src/catastyle/
 └── catastyle.config.ts
 ```
 
-Temas, logos e ícones do ThemeButton são configurados no mesmo arquivo.
+Nesse arquivo você configura apenas **temas**. Logo e ícone do ThemeButton são definidos pelas props nos componentes (ou no `Main`); se não forem passados, usam os padrão do Catastyle.
 
 ### Temas customizados
 
-Edite `src/catastyle/config/catastyle.config.ts` e defina `darkTheme` e/ou `lightTheme`. Se forem `null`, os temas padrão do Catastyle são usados.
+Edite `src/catastyle/catastyle.config.ts` e defina `darkTheme` e/ou `lightTheme`. Se forem `null`, os temas padrão do Catastyle são usados.
 
 Exemplo de tema customizado:
 
@@ -134,7 +134,7 @@ export const lightTheme: DefaultTheme | null = {
 
 ```tsx
 import { Main } from 'catastyle'
-import { darkTheme, lightTheme } from './catastyle/config/catastyle.config'
+import { darkTheme, lightTheme } from './catastyle/catastyle.config'
 
 function App() {
   return (
@@ -147,18 +147,27 @@ function App() {
 
 Assim o config entra no bundle e alterações em `catastyle.config.ts` refletem ao salvar.
 
-### Logos customizados
+### Logos e ícones customizados
 
-Os **logos padrão** do Catastyle vêm embutidos no pacote (data URL) e funcionam em qualquer bundler (Vite, Webpack, etc.) sem configuração extra.
+Se não passar logo ou ícone, a **Logo** e o **ThemeButton** usam os padrões do Catastyle. Para usar os seus, importe os SVGs e passe como props:
 
-Para usar seus próprios SVGs, edite `src/catastyle/config/catastyle.config.ts` e defina os caminhos em `logoLight`/`logoDark` e, se quiser, em `iconLight`/`iconDark` (ícone do ThemeButton). Use `'default'` para manter os padrão do Catastyle. Os caminhos devem ser os que o seu projeto consegue resolver (ex.: caminho público ou URL).
+```tsx
+import { Logo, Main } from 'catastyle'
+import logoClaro from '@/assets/meu-logo-claro.svg'
+import logoEscuro from '@/assets/meu-logo-escuro.svg'
 
-```ts
-export const logoLight: string = '/src/assets/logo-light.svg'
-export const logoDark: string = '/src/assets/logo-dark.svg'
-export const iconLight: string = 'default'  // ou mesmo path do logo
-export const iconDark: string = 'default'
+<Logo logoLight={logoClaro} logoDark={logoEscuro} />
 ```
+
+```tsx
+import { ThemeButton } from 'catastyle'
+import iconClaro from '@/assets/meu-icone-claro.svg'
+import iconEscuro from '@/assets/meu-icone-escuro.svg'
+
+<ThemeButton iconLight={iconClaro} iconDark={iconEscuro} />
+```
+
+Logo e ícone são definidos pelas props em `<Logo>` e `<ThemeButton>` (ou repassados pelo `Main`); o arquivo `catastyle.config.ts` é apenas para temas.
 
 ## Exports adicionais
 
