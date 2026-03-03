@@ -25,4 +25,17 @@ describe('Title', () => {
     )
     expect(screen.getByText('Título')).toHaveClass('titulo-custom')
   })
+
+  it('aceita children como ReactNode (ex.: com quebra de linha)', () => {
+    renderWithTheme(
+      <Title color="primary">
+        Linha um
+        <br />
+        Linha dois
+      </Title>
+    )
+    const titulo = screen.getByRole('heading', { level: 1 })
+    expect(titulo).toHaveTextContent('Linha um')
+    expect(titulo).toHaveTextContent('Linha dois')
+  })
 })

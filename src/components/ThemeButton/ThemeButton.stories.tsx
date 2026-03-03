@@ -15,6 +15,11 @@ const meta: Meta<typeof ThemeButton> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    position: {
+      control: 'select',
+      options: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
+      description: 'Posição do botão na tela'
+    },
     onClick: { action: 'clicked' }
   }
 }

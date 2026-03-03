@@ -5,7 +5,11 @@ import type { ReactElement } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 function ProvidersWrapper({ children }: { children: React.ReactNode }) {
-  return <ThemeProvider theme={DarkTheme}>{children}</ThemeProvider>
+  return (
+    <ThemeProvider theme={{ ...DarkTheme, isDark: true }}>
+      {children}
+    </ThemeProvider>
+  )
 }
 
 function renderWithTheme(

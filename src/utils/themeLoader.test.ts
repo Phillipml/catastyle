@@ -8,7 +8,7 @@ describe('themeloader', () => {
     vi.resetModules()
   })
   describe('getDarkTheme', () => {
-    it('retorna o tema dark default quando nõ temos config do usuario', async () => {
+    it('retorna o tema dark default quando não temos config do usuário', async () => {
       const { getDarkTheme } = await import('./themeLoader')
       const theme = getDarkTheme()
       expect(theme).toBeDefined()
