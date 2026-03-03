@@ -2,7 +2,7 @@ import type { FontSizeType } from '@/types'
 import { TitleStyled } from './styles'
 
 export type TitleType = {
-  children: string
+  children: React.ReactNode
   className?: string
   color: 'primary' | 'secondary'
 } & FontSizeType
