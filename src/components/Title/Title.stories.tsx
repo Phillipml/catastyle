@@ -5,17 +5,24 @@ const meta = {
   title: 'Components/Title',
   component: Title,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Título. Aceita `children` como texto ou ReactNode (ex.: com <br /> para quebra de linha).'
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
     children: {
       control: 'text',
-      description: 'Title content'
+      description: 'Conteúdo do título (texto ou ReactNode)'
     },
     color: {
-      control: 'text',
-      description: 'Title color'
+      control: 'select',
+      options: ['primary', 'secondary'],
+      description: 'Cor do título'
     },
     $lgFontSize: {
       control: 'select',
@@ -46,4 +53,20 @@ export const Default: Story = {
     $mdFontSize: 32,
     $smFontSize: 24
   }
+}
+
+export const WithLineBreak: Story = {
+  args: {
+    color: 'primary',
+    $lgFontSize: 24,
+    $mdFontSize: 20,
+    $smFontSize: 16
+  },
+  render: (args) => (
+    <Title {...args}>
+      Primeira linha
+      <br />
+      Segunda linha
+    </Title>
+  )
 }

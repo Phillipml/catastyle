@@ -28,4 +28,13 @@ describe('Main', () => {
     const main = screen.getByText('Conteúdo').closest('main')
     expect(main).toHaveClass('main-custom')
   })
+
+  it('renderiza com centered=false sem quebrar', () => {
+    render(
+      <Main centered={false}>
+        <span>Conteúdo não centralizado</span>
+      </Main>
+    )
+    expect(screen.getByText('Conteúdo não centralizado')).toBeInTheDocument()
+  })
 })

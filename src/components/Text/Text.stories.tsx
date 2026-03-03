@@ -11,8 +11,8 @@ const meta = {
   argTypes: {
     as: {
       control: 'select',
-      options: ['p', 'span', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-      description: 'HTML element to be rendered'
+      options: ['p', 'span'],
+      description: 'Elemento HTML renderizado'
     },
     children: {
       control: 'text',
